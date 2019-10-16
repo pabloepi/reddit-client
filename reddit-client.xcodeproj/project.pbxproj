@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		6EAB4B6B23578E700054443F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EAB4B6A23578E700054443F /* AppDelegate.swift */; };
-		6EAB4B6D23578E700054443F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EAB4B6C23578E700054443F /* SceneDelegate.swift */; };
 		6EAB4B6F23578E700054443F /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EAB4B6E23578E700054443F /* MasterViewController.swift */; };
 		6EAB4B7123578E700054443F /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EAB4B7023578E700054443F /* DetailViewController.swift */; };
 		6EAB4B7423578E700054443F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6EAB4B7223578E700054443F /* Main.storyboard */; };
@@ -19,7 +18,6 @@
 /* Begin PBXFileReference section */
 		6EAB4B6723578E700054443F /* reddit-client.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "reddit-client.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6EAB4B6A23578E700054443F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		6EAB4B6C23578E700054443F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		6EAB4B6E23578E700054443F /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
 		6EAB4B7023578E700054443F /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		6EAB4B7323578E700054443F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -59,15 +57,62 @@
 			isa = PBXGroup;
 			children = (
 				6EAB4B6A23578E700054443F /* AppDelegate.swift */,
-				6EAB4B6C23578E700054443F /* SceneDelegate.swift */,
-				6EAB4B6E23578E700054443F /* MasterViewController.swift */,
-				6EAB4B7023578E700054443F /* DetailViewController.swift */,
-				6EAB4B7223578E700054443F /* Main.storyboard */,
-				6EAB4B7523578E730054443F /* Assets.xcassets */,
-				6EAB4B7723578E730054443F /* LaunchScreen.storyboard */,
-				6EAB4B7A23578E730054443F /* Info.plist */,
+				6EAB4B852357A7710054443F /* Controllers */,
+				6EAB4B802357A7520054443F /* Extensions */,
+				6EAB4B832357A7650054443F /* Resources */,
+				6EAB4B842357A76B0054443F /* Stores */,
+				6EAB4B822357A7610054443F /* Storyboards */,
+				6EAB4B812357A7560054443F /* View Controllers */,
 			);
 			path = "reddit-client";
+			sourceTree = "<group>";
+		};
+		6EAB4B802357A7520054443F /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		6EAB4B812357A7560054443F /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				6EAB4B7023578E700054443F /* DetailViewController.swift */,
+				6EAB4B6E23578E700054443F /* MasterViewController.swift */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		6EAB4B822357A7610054443F /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				6EAB4B7723578E730054443F /* LaunchScreen.storyboard */,
+				6EAB4B7223578E700054443F /* Main.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		6EAB4B832357A7650054443F /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				6EAB4B7523578E730054443F /* Assets.xcassets */,
+				6EAB4B7A23578E730054443F /* Info.plist */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		6EAB4B842357A76B0054443F /* Stores */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Stores;
+			sourceTree = "<group>";
+		};
+		6EAB4B852357A7710054443F /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -142,7 +187,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				6EAB4B6B23578E700054443F /* AppDelegate.swift in Sources */,
-				6EAB4B6D23578E700054443F /* SceneDelegate.swift in Sources */,
 				6EAB4B6F23578E700054443F /* MasterViewController.swift in Sources */,
 				6EAB4B7123578E700054443F /* DetailViewController.swift in Sources */,
 			);
@@ -220,7 +264,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -274,7 +318,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -290,12 +334,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6VCHDS2F27;
-				INFOPLIST_FILE = "reddit-client/Info.plist";
+				INFOPLIST_FILE = "reddit-client/Resources/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.deviget.reddit-client.reddit-client";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.deviget.reddit-client";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -308,12 +353,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6VCHDS2F27;
-				INFOPLIST_FILE = "reddit-client/Info.plist";
+				INFOPLIST_FILE = "reddit-client/Resources/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.deviget.reddit-client.reddit-client";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.deviget.reddit-client";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
