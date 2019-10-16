@@ -12,25 +12,22 @@ class DetailViewController: UIViewController {
 
     @IBOutlet weak var detailDescriptionLabel: UILabel!
 
-    func configureView() {
-        // Update the user interface for the detail item.
-        if let detail = detailItem {
-            if let label = detailDescriptionLabel {
-                label.text = detail.description
-            }
+    var post: Post? {
+        didSet {
+            configureView()
         }
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         configureView()
     }
 
-    var detailItem: NSDate? {
-        didSet {
-            // Update the view.
-            configureView()
+    private func configureView() {
+        if let post = post {
+//            if let label = detailDescriptionLabel {
+//                label.text = detail.description
+//            }
         }
     }
 
