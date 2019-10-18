@@ -8,9 +8,10 @@
 
 import UIKit
 
-class MasterViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class MasterViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate {
 
     private var more: Bool = true
+    private var loading: Bool = false
     private var after: String?
     private var detailViewController: DetailViewController? = nil
     private var posts = [Post]()
@@ -31,25 +32,11 @@ class MasterViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
     }
 
-    // MARK: - Segues
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showDetail" {
-            if let indexPath = tableView.indexPathForSelectedRow {
-                let post = posts[indexPath.row]
-                let controller = (segue.destination as! UINavigationController).topViewController as! DetailViewController
-                controller.post = post
-                controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
-                controller.navigationItem.leftItemsSupplementBackButton = true
-                detailViewController = controller
-            }
-        }
-    }
-
     // MARK: - Private Methods
 
     private func initGUI() {
         title = NSLocalizedString("Reddit Posts", comment: "")
+        loading = true
         refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
         tableView.register(UINib(nibName: PostCell.defaultIdentifier(), bundle: Bundle.main), forCellReuseIdentifier: PostCell.defaultIdentifier())
         tableView.addSubview(refreshControl)
@@ -66,6 +53,7 @@ class MasterViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
     private func loadPosts(refreshing: Bool) {
         PostStore.posts(size: nil, after: after, completion: { [weak self] (posts, after, error) in
+            self?.loading = false
             self?.after = after
             if refreshing {
                 self?.more = true
@@ -137,7 +125,28 @@ class MasterViewController: UIViewController, UITableViewDelegate, UITableViewDa
         posts[indexPath.row].read = true
         let post = posts[indexPath.row]
         cell.post = post
-        performSegue(withIdentifier: "showDetail", sender: nil)
+        if UI_USER_INTERFACE_IDIOM() == .phone {
+            let identifier = DetailViewController.defaultIdentifier()
+            if let vc = storyboard?.instantiateViewController(withIdentifier: identifier) as? DetailViewController {
+                vc.post = post
+                show(vc, sender: nil)
+            }
+        } else if UI_USER_INTERFACE_IDIOM() == .pad {
+            detailViewController?.post = post
+        }
+    }
+
+    // MARK: Scroll View
+
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        if !posts.isEmpty && more {
+            let distance = scrollView.contentSize.height - (targetContentOffset.pointee.y + scrollView.bounds.height)
+            if !loading && distance < 100 {
+                loading = true
+                tableView.reloadSections(IndexSet([0]), with: .fade)
+                loadPosts(refreshing: false)
+            }
+        }
     }
 
 }

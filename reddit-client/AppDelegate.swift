@@ -17,5 +17,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 
+    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
+        if UI_USER_INTERFACE_IDIOM() == .phone {
+            return [.portrait, .portraitUpsideDown]
+        }
+        return .all
+    }
+
 }
 

@@ -28,6 +28,13 @@ class PostCell: UITableViewCell {
         }
     }
 
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        thumbnailImageView.image = nil
+    }
+
+    // MARK: Private Methods
+
     private func configureView() {
         if let post = post {
             titleLabel.text = post.title
@@ -46,11 +53,7 @@ class PostCell: UITableViewCell {
         }
     }
 
-    override func prepareForReuse() {
-        thumbnailImageView.image = nil
-    }
-
-    @IBAction func dismissPost(_ sender: Any) {
+    @IBAction private func dismissPost(_ sender: Any) {
         didTapDismissPost?(self)
     }
 

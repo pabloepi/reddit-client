@@ -29,11 +29,13 @@ class ImageCacheController {
         } else {
             DispatchQueue.global(qos: .userInteractive).async { [weak self] in
                 guard let sself = self else { return }
-                var image: UIImage!
                 do {
-                    image = UIImage(data: try Data(contentsOf: url, options: .mappedIfSafe))
-                    sself.imageCache.setObject(image, forKey: url.absoluteString as NSString)
-                    completion?(image, nil)
+                    if let image = UIImage(data: try Data(contentsOf: url, options: .mappedIfSafe)) {
+                        sself.imageCache.setObject(image, forKey: url.absoluteString as NSString)
+                        completion?(image, nil)
+                        return
+                    }
+                    completion?(nil, .downloadError)
                 } catch {
                     completion?(nil, .downloadError)
                 }
