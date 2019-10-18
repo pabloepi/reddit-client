@@ -10,10 +10,14 @@ import UIKit
 
 class MasterViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
+    private var more: Bool = true
+    private var after: String?
     private var detailViewController: DetailViewController? = nil
     private var posts = [Post]()
 
     @IBOutlet private weak var tableView: UITableView!
+
+    private var refreshControl = UIRefreshControl()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,10 +50,43 @@ class MasterViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
     private func initGUI() {
         title = NSLocalizedString("Reddit Posts", comment: "")
+        refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
+        tableView.register(UINib(nibName: PostCell.defaultIdentifier(), bundle: Bundle.main), forCellReuseIdentifier: PostCell.defaultIdentifier())
+        tableView.addSubview(refreshControl)
         if let split = splitViewController {
             let controllers = split.viewControllers
             detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
         }
+        loadPosts(refreshing: true)
+    }
+
+    @objc private func refreshData() {
+        loadPosts(refreshing: true)
+    }
+
+    private func loadPosts(refreshing: Bool) {
+        PostStore.posts(size: nil, after: after, completion: { [weak self] (posts, after, error) in
+            self?.after = after
+            if refreshing {
+                self?.more = true
+                self?.posts.removeAll()
+                self?.posts = posts
+            } else {
+                self?.posts.append(contentsOf: posts)
+            }
+            DispatchQueue.main.async {
+                guard let sself = self else {
+                    return
+                }
+                sself.tableView.reloadSections(IndexSet([0]), with: .fade)
+                if refreshing {
+                    sself.refreshControl.endRefreshing()
+                }
+            }
+            if posts.isEmpty {
+                self?.more = false
+            }
+        })
     }
 
     @IBAction func dismissAll(_ sender: Any) {
@@ -79,11 +116,28 @@ class MasterViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if let cell = cell as? PostCell {
+        if let cell = cell as? PostCell {   
             let post = posts[indexPath.row]
             cell.accessoryType = .disclosureIndicator
             cell.post = post
+            cell.didTapDismissPost = { [weak self] cell in
+                self?.posts.remove(at: indexPath.row)
+                DispatchQueue.main.async {
+                    self?.tableView.reloadSections(IndexSet([0]), with: .fade)
+                }
+            }
         }
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        guard let cell = tableView.cellForRow(at: indexPath) as? PostCell else {
+            fatalError()
+        }
+        posts[indexPath.row].read = true
+        let post = posts[indexPath.row]
+        cell.post = post
+        performSegue(withIdentifier: "showDetail", sender: nil)
     }
 
 }

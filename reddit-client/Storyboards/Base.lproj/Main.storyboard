@@ -70,6 +70,7 @@
                     <navigationItem key="navigationItem" id="T3c-Rh-JDz"/>
                     <connections>
                         <outlet property="tableView" destination="NCi-Ax-oyi" id="K7q-WN-WcQ"/>
+                        <segue destination="vC3-pB-5Vb" kind="show" identifier="showDetail" id="YDm-bn-tJZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ypy-k5-eMt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -127,6 +128,7 @@
         <scene sceneID="r7l-gg-dq7">
             <objects>
                 <navigationController id="vC3-pB-5Vb" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="hqR-eh-9DE"/>
                     <navigationBar key="navigationBar" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="DjV-YW-jjY">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -140,4 +142,7 @@
             <point key="canvasLocation" x="-45" y="129"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="YDm-bn-tJZ"/>
+    </inferredMetricsTieBreakers>
 </document>
